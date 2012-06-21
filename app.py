@@ -10,7 +10,7 @@ def index():
 
 @route('/locate/me')
 def locateme():
-    return locate(request['REMOTE_ADDR'])
+    return geoip_db.record_by_addr(request['REMOTE_ADDR'])
 
 @route('/locate/:ip')
 def locate(ip):
