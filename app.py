@@ -4,20 +4,30 @@ import os
 
 geoip_db = GeoIP('GeoLiteCity.dat')
 
+
 @route('/')
 def index():
     return 'try /locate/(ip) or /locate/me'
+
 
 @route('/me')
 def me():
     return request['REMOTE_ADDR']
 
+
+@route('/request')
+def req():
+    return {'keys': request.environ.keys()}
+
+
 @route('/locate/me')
 def locateme():
     return geoip_db.record_by_addr(request['REMOTE_ADDR'])
 
+
 @route('/locate/:ip')
 def locate(ip):
     return geoip_db.record_by_addr(ip)
+
 
 run(server='gevent', port=os.environ.get('PORT', 8080), host='0.0.0.0')
