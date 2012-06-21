@@ -12,7 +12,7 @@ def index():
 
 @route('/locate/me')
 def locateme():
-    return geoip_db.record_by_addr(request['HTTP_X_FORWARDED_FOR'])
+    return geoip_db.record_by_addr(request.get('HTTP_X_FORWARDED_FOR', request['REMOTE_ADDR'])
 
 
 @route('/locate/:ip')
