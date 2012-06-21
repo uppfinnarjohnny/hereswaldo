@@ -10,19 +10,9 @@ def index():
     return 'try /locate/(ip) or /locate/me'
 
 
-@route('/me')
-def me():
-    return request['REMOTE_ADDR']
-
-
-@route('/request')
-def req():
-    return {'keys': request.environ.keys()}
-
-
 @route('/locate/me')
 def locateme():
-    return geoip_db.record_by_addr(request['REMOTE_ADDR'])
+    return geoip_db.record_by_addr(request['HTTP_X_FORWARDED_FOR'])
 
 
 @route('/locate/:ip')
